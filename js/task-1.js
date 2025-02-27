@@ -1,36 +1,34 @@
-// Напиши функцію isEnoughCapacity(products, containerSize), яка обчислює, чи помістяться всі товари в контейнер при пакуванні.
 
-// Функція оголошує два параметри:
+// Перед звільненням розробник зламав вихідний код управління акаунтами користувачів нашого сервісу доставки їжі. Виконай рефакторинг методів об'єкта customer, розставивши відсутні this під час звернення до властивостей об'єкта.
 
-// products — об’єкт, у якому ключі містять назви товарів, а їхні значення — кількість цих товарів. Наприклад, { apples: 2, grapes: 4 }.
-// containerSize — число, максимальна кількість одиниць товарів, яку в себе може вмістити контейнер.
-// Функція має повернути результат перевірки, чи помістяться всі товари в контейнер. Тобто порахувати загальну кількість товарів в об’єкті products і повернути true, якщо вона менше або дорівнює containerSize, і false, якщо ні.
+// Використай цей стартовий код і виконай рефакторинг. Після оголошення об'єкта ми додали виклики методів. У консоль будуть виведені результати їх роботи. Будь ласка, нічого там не змінюй.
 
-// Візьми код нижче і встав після оголошення своєї функції для перевірки коректності її роботи. У консоль будуть виведені результати її викликів.
-function isEnoughCapacity(products, containerSize) {
-    let totalQuantity = 0;
+const customer = {
+  username: "Mango",
+  balance: 24000,
+  discount: 0.1,
+  orders: ["Burger", "Pizza", "Salad"],
+  // Виправлення this
+  getBalance() {
+    return this.balance;
+  },
+  getDiscount() {
+    return this.discount;
+  },
+  setDiscount(value) {
+    this.discount = value;
+  },
+  getOrders() {
+    return this.orders;
+  },
+  addOrder(cost, order) {
+    this.balance -= cost - cost * this.discount;
+    this.orders.push(order);
+  },
+};
 
-  // Отримуємо масив значень (кількість товарів) і рахуємо загальну кількість
-  for (const quantity of Object.values(products)) {
-    totalQuantity += quantity;
-  }
-
-  // Порівнюємо загальну кількість товарів із розміром контейнера
-  return totalQuantity <= containerSize;
-}
-
-console.log(
-  isEnoughCapacity({ apples: 2, grapes: 3, carrots: 1 }, 8)
-); // true
-
-console.log(
-  isEnoughCapacity({ apples: 4, grapes: 6, lime: 16 }, 12)
-); // false
-
-console.log(
-  isEnoughCapacity({ apples: 1, lime: 5, tomatoes: 3 }, 14)
-); // true
-
-console.log(
-  isEnoughCapacity({ apples: 18, potatoes: 5, oranges: 2 }, 7)
-); // false
+customer.setDiscount(0.15);
+console.log(customer.getDiscount()); // 0.15
+customer.addOrder(5000, "Steak");
+console.log(customer.getBalance()); // 19750
+console.log(customer.getOrders()); // ["Burger", "Pizza", "Salad", "Steak"]

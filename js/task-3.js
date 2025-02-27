@@ -1,35 +1,46 @@
-// Доповни об’єкт profile методами для роботи з його властивостями.
+// Напиши клас StringBuilder, який приймає один параметр initialValue — довільний рядок, який записується у приватну властивість value об'єкта, що створюється.
 
-// Метод changeUsername(newName) повинен приймати рядок (нове ім’я) в параметр newName та змінювати значення властивості username на нове. Нічого не повертає.
-// Метод updatePlayTime(hours) повинен приймати число (кількість годин) у параметр hours та збільшити на нього значення властивості playTime. Нічого не повертає.
-// Метод getInfo() має повертати рядок формату <Username> has <amount> active hours!, де <Username> — це ім’я профілю, а <amount> — кількість ігрових годин.
 
-const profile = {
-  username: "Jacob",
-  playTime: 300,
 
-  // Метод для зміни імені профілю
-  changeUsername(newName) {
-    this.username = newName;
-  },
+// Оголоси наступні методи класу:
 
-  // Метод для оновлення ігрового часу
-  updatePlayTime(hours) {
-    this.playTime += hours;
-  },
+// getValue() — повертає поточне значення приватної властивості value.
+// padEnd(str) — отримує параметр str (рядок) і додає його в кінець значення приватної властивості value об'єкта, який викликає цей метод.
+// padStart(str) — отримує параметр str (рядок) і додає його на початок значення приватної властивості value об'єкта, який викликає цей метод.
+// padBoth(str) — отримує параметр str (рядок) і додає його на початок і в кінець значення приватної властивості value об'єкта, який викликає цей метод.
+// Візьми код нижче з ініціалізацією екземпляра й викликами методів і встав його після оголошення класу для перевірки коректності роботи. У консоль будуть виведені результати їх роботи. Будь ласка, нічого там не змінюй.
 
-  // Метод для отримання інформації про профіль
-  getInfo() {
-    return `${this.username} has ${this.playTime} active hours!`;
+
+class StringBuilder {
+  #value;
+
+  constructor(initialValue) {
+    this.#value = initialValue;
   }
-};
 
-// Перевірка методів
+  getValue() {
+    return this.#value;
+  }
 
-console.log(profile.getInfo()); // "Jacob has 300 active hours!"
+  padEnd(str) {
+    this.#value += str;
+  }
 
-profile.changeUsername("Marco");
-console.log(profile.getInfo()); // "Marco has 300 active hours!"
+  padStart(str) {
+    this.#value = str + this.#value;
+  }
 
-profile.updatePlayTime(20);
-console.log(profile.getInfo()); // "Marco has 320 active hours!"
+  padBoth(str) {
+    this.#value = str + this.#value + str;
+  }
+}
+
+
+const builder = new StringBuilder(".");
+console.log(builder.getValue()); // "."
+builder.padStart("^");
+console.log(builder.getValue()); // "^."
+builder.padEnd("^");
+console.log(builder.getValue()); // "^.^"
+builder.padBoth("=");
+console.log(builder.getValue()); // "=^.^="
